@@ -204,7 +204,9 @@ export default function AssignmentEditor() {
         </div>
         </div>
       </div>
-      
+      <div className="row mb-3">
+        <div className="col-md-8"><hr/></div>
+      </div>
       <div className="row">
         <div className="col-md-8 text-end">
           <button className="btn btn-secondary me-2">Cancel</button>
