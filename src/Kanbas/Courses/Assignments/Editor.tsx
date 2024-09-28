@@ -103,7 +103,7 @@ export default function AssignmentEditor() {
       //     </tr>
       //   </table>
       // </div>
-      <div id="wd-assignments-editor" className="p-3 mb-3">
+      <div id="wd-assignments-editor" className="p-3">
     <h5>Assignment Name</h5>
     <div className="row mb-3">
     <div className="col-md-8">

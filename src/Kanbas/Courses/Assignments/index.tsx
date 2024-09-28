@@ -73,7 +73,8 @@ export default function Assignments() {
       <ul className="wd-lessons list-group rounded-0">
         <li className="wd-lesson list-group-item p-3 ps-1">
         <div className="d-flex align-items-center">
-        <BsGripVertical className="me-2 fs-3" />< PiNotebookBold className="me-2 text-success "/>
+        <BsGripVertical className="me-2 fs-3" />
+        <Link to="/Kanbas/Courses/1234/Assignments/123">< PiNotebookBold className="me-2 text-success " /></Link>
           <div className="p-2">
           <a className="custom-link fs-5"
               href="#/Kanbas/Courses/1234/Assignments/123">
@@ -85,7 +86,8 @@ export default function Assignments() {
           <LessonControlButtons /></div></li>
           <li className="wd-lesson list-group-item p-3 ps-1">
         <div className="d-flex align-items-center">
-        <BsGripVertical className="me-2 fs-3" />< PiNotebookBold className="me-2 text-success "/>
+        <BsGripVertical className="me-2 fs-3" />
+        <Link to="/Kanbas/Courses/1234/Assignments/123">< PiNotebookBold className="me-2 text-success " /></Link>
           <div className="p-2">
           <a className="custom-link fs-5"
               href="#/Kanbas/Courses/1234/Assignments/123">
@@ -97,7 +99,8 @@ export default function Assignments() {
           <LessonControlButtons /></div></li>
           <li className="wd-lesson list-group-item p-3 ps-1">
         <div className="d-flex align-items-center">
-        <BsGripVertical className="me-2 fs-3" />< PiNotebookBold className="me-2 text-success "/>
+        <BsGripVertical className="me-2 fs-3" />
+        <Link to="/Kanbas/Courses/1234/Assignments/123">< PiNotebookBold className="me-2 text-success " /></Link>
           <div className="p-2">
           <a className="custom-link fs-5"
               href="#/Kanbas/Courses/1234/Assignments/123">
