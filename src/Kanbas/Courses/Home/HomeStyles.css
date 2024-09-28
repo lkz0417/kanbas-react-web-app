@@ -5,6 +5,6 @@ custom-spacing {
   
   .container {
     display: flex;
-    gap: 20px; /* 设置子元素之间的间距为 20px */
-  }
+    gap: 20px; 
+}
   
