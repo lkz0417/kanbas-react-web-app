@@ -6,12 +6,12 @@ import Signup from "./Signup";
 export default function Account() {
   return (
     <div id="wd-account-screen">
-      <table>
-        <tr>
-          <td valign="top">
+      <div className="d-flex">
+        
+         <div className="m-3">
             <AccountNavigation />
-          </td>
-          <td valign="top">
+         </div>
+          <div className="m-3">
             <Routes>
               <Route path="/"
                      element={<Navigate to="/Kanbas/Account/Signin" />} />
@@ -19,9 +19,8 @@ export default function Account() {
               <Route path="/Profile" element={<Profile />} />
               <Route path="/Signup" element={<Signup />} />
             </Routes>
-          </td>
-        </tr>
-      </table>
+          </div>
+      </div>
     </div>
 );}
 

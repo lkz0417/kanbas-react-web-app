@@ -1,0 +1,10 @@
+custom-spacing {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+  
+  .container {
+    display: flex;
+    gap: 20px; /* 设置子元素之间的间距为 20px */
+  }
+  
