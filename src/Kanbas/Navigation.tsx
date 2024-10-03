@@ -48,11 +48,11 @@ export default function KanbasNavigation() {
         ${pathname.includes("History") ? "bg-white text-danger" : "text-white bg-black"}`}>
       <MdOutlineHistory  className="fs-2 text-danger" /><br />
       History </Link>
-      <Link to="/Kanbas/Studio" id="wd-studio-link"
+      <Link to="/Labs" id="wd-studio-link"
       className={`list-group-item text-center border-0
         ${pathname.includes("Studio") ? "bg-white text-danger" : "text-white bg-black"}`}>
       <SiYoutubestudio  className="fs-2 text-danger" /><br />
-      Studio </Link>
+      Labs </Link>
       <Link to="/Kanbas/Help" id="wd-help-link"
       className={`list-group-item text-center border-0
         ${pathname.includes("Help") ? "bg-white text-danger" : "text-white bg-black"}`}>
