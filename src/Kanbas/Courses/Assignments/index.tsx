@@ -10,6 +10,7 @@ import ModuleControlButtons from "../Modules/ModuleControlButtons";
 import { IoMdArrowDropdownCircle } from "react-icons/io";
 import { PiNotebookBold } from "react-icons/pi";
 import AssignmentControls from "./AssignmentControls";
+import AssignmentButton from "./AssignmentButton";
 import { Link } from "react-router-dom";
 export default function Assignments() {
     return (
@@ -83,7 +84,7 @@ export default function Assignments() {
             <span className="text-danger">Multiple Modules</span> | <span className="fw-bold">Not available until</span> May 13 at 12:00am |<br/> 
             <span className="fw-bold">Due</span> May 13 at 11:59pm | 100pts
           </div>
-          <LessonControlButtons /></div></li>
+          <AssignmentButton /></div></li>
           <li className="wd-lesson list-group-item p-3 ps-1">
         <div className="d-flex align-items-center">
         <BsGripVertical className="me-2 fs-3" />
@@ -96,7 +97,7 @@ export default function Assignments() {
             <span className="text-danger">Multiple Modules</span> | <span className="fw-bold">Not available until</span> May 13 at 12:00am |<br/> 
             <span className="fw-bold">Due</span> May 16 at 11:59pm | 100pts
           </div>
-          <LessonControlButtons /></div></li>
+          <AssignmentButton /></div></li>
           <li className="wd-lesson list-group-item p-3 ps-1">
         <div className="d-flex align-items-center">
         <BsGripVertical className="me-2 fs-3" />
@@ -109,7 +110,7 @@ export default function Assignments() {
             <span className="text-danger">Multiple Modules</span> | <span className="fw-bold">Not available until</span> May 13 at 12:00am |<br/> 
             <span className="fw-bold">Due</span> May 20 at 11:59pm | 100pts
           </div>
-          <LessonControlButtons /></div></li>
+          <AssignmentButton /></div></li>
         
       </ul>
       </div>
