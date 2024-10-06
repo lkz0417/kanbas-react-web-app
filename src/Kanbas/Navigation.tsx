@@ -8,10 +8,20 @@ import { MdOutlineHistory } from "react-icons/md";
 import { SiYoutubestudio } from "react-icons/si";
 import { IoHelpCircleOutline } from "react-icons/io5";
 import { IoHome } from "react-icons/io5";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router";
+import { Link, useLocation } from "react-router-dom";
 export default function KanbasNavigation() {
   const {pathname}  = useLocation();
+  const links = [
+    { label: "Dashboard", path: "/Kanbas/Dashboard", icon: AiOutlineDashboard },
+    { label: "Courses",   path: "/Kanbas/Courses", icon: LiaBookSolid },
+    { label: "Calendar",  path: "/Kanbas/Calendar",  icon: IoCalendarOutline },
+    { label: "Inbox",     path: "/Kanbas/Inbox",     icon: FaInbox },
+    { label: "Labs",      path: "/Labs",             icon: LiaCogSolid },
+    { label: "History",     path: "/Kanbas/History",     icon: MdOutlineHistory },
+    { label: "Help",     path: "/Kanbas/Help",     icon: IoHelpCircleOutline},
+    { label: "Landing",     path: "/",     icon: IoHome },
+  ];
+
   return (
     <div id="wd-kanbas-navigation" style={{ width: 110 }} 
          className="list-group rounded-0  position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2">
@@ -19,7 +29,7 @@ export default function KanbasNavigation() {
         href="https://www.northeastern.edu/"
         className="list-group-item bg-black border-0 text-center">
         <img src="/images/NEU.png" width="75px" /></a>
-      <Link to="/Kanbas/Account" id="wd-account-link"
+      {/* <Link to="/Kanbas/Account" id="wd-account-link"
         className="list-group-item text-center border-0 bg-black text-white">
         <FaRegCircleUser className="fs-2 text text-white" /><br />
         Account </Link>
@@ -60,8 +70,22 @@ export default function KanbasNavigation() {
       Help </Link>
       <Link to="/" id="wd-landing-link"
       className={`list-group-item text-center border-0
-        ${pathname.includes("Help") ? "bg-white text-danger" : "text-white bg-black"}`}>
+        ${pathname.includes("Landing") ? "bg-white text-danger" : "text-white bg-black"}`}>
       <IoHome  className="fs-2 text-danger" /><br />
-      Landing Page</Link>
+      Landing Page</Link> */}
+       <Link to="/Kanbas/Account" className={`list-group-item text-center border-0 bg-black
+            ${pathname.includes("Account") ? "bg-white text-danger" : "bg-black text-white"}`}>
+        <FaRegCircleUser className={`fs-2 ${pathname.includes("Account") ? "text-danger" : "text-white"}`} />
+        <br />
+        Account
+      </Link>
+      {links.map((link) => (
+        <Link key={link.path} to={link.path} className={`list-group-item bg-black text-center border-0
+              ${pathname.includes(link.label) ? "text-danger bg-white" : "text-white bg-black"}`}>
+          {link.icon({ className: "fs-2 text-danger"})}
+          <br />
+          {link.label}
+        </Link>
+      ))}
     </div>
 );}

@@ -1,11 +1,20 @@
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router";
-
+import { useParams } from "react-router-dom";
+import { courses } from "../Database";
 export default function CoursesNavigation() {
+  const links = ["Home", "Modules", "Piazza", "Zoom", "Assignments", "Quizzes", "Grades", "People"];
+  const {cid} = useParams();
   const {pathname} = useLocation();
+  const course = courses.find((course) => course._id === cid);
   return (
     <div id="wd-courses-navigation" className="wd list-group fs-5 rounded-0">
-      <Link id="wd-course-home-link"    to="/Kanbas/Courses/1234/Home" 
+      {links.map((link) => (
+        <Link id="wd-course-home-link"    to={`/Kanbas/Courses/${cid}/${link}` }
+        className={`list-group-item border border-0
+          ${pathname.includes(`${link}`) ? "active" : "text-danger"}`}>{link}</Link>
+))}
+      {/* <Link id="wd-course-home-link"    to="/Kanbas/Courses/1234/Home" 
       className={`list-group-item border border-0
         ${pathname.includes("Home") ? "active" : "text-danger"}`}>Home</Link>
       <Link id="wd-course-modules-link" to="/Kanbas/Courses/1234/Modules"
@@ -31,6 +40,6 @@ export default function CoursesNavigation() {
         ${pathname.includes("Grades") ? "active" : "text-danger"}`}>Grades</Link>
       <Link id="wd-course-people-link"  to="/Kanbas/Courses/1234/People"
       className={`list-group-item border border-0
-        ${pathname.includes("People") ? "active" : "text-danger"}`}>People</Link>
+        ${pathname.includes("People") ? "active" : "text-danger"}`}>People</Link> */}
     </div>
 );}
