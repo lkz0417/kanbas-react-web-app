@@ -14,9 +14,14 @@ import AssignmentButton from "./AssignmentButton";
 import { Link } from "react-router-dom";
 import { useParams , useLocation } from "react-router-dom";
 import * as db from "../../Database";
-export default function Assignments() {
+import { useSelector, useDispatch } from "react-redux";
+import { addAssignment, updateAssignment, deleteAssignment }
+  from "./reducer";
+import { useState } from "react";
+export default function Assignments({assignment, assignments,setAssignment} : {setAssignment: (assignment: any) => void;
+  assignment : any; assignments : any[];
+}) {
   const {cid} = useParams();
-  const assignments = db.assignments;
     return (
       <div>
       <div id="wd-assignments">
@@ -31,9 +36,13 @@ export default function Assignments() {
         <button id="wd-view-progress" className="btn   me-1 btn-secondary ms-auto height">
         <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
         Group </button>
-        <button id="wd-add-module-btn" className="btn  btn-danger me-1 height">
-        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
-        Module</button>
+        
+        <a id="wd-add-assignment-btn" className="btn  btn-danger  me-1 height"
+        href={`/#/Kanbas/Courses/${cid}/Assignments/${cid}`}>
+        <div className="d-flex">
+        <FaPlus className="position-relative me-2" style={{ top: "10px" }} />
+        <p className="position-relative me-1" style={{ top: "6px" }}>Assignment</p></div></a>
+        
         
         </div><br/>
         
@@ -89,13 +98,14 @@ export default function Assignments() {
               <Link to={`/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>< PiNotebookBold className="me-2 text-success " /></Link>
                 <div className="p-2">
                 <a className="custom-link fs-5"
-                    href={`/#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
-                    {assignment && assignment._id}
+                    href={`/#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
+                    onClick={() => setAssignment(assignment)}>
+                    {assignment && assignment.title}
                   </a><br/>
                   <span className="text-danger">Multiple Modules</span> | <span className="fw-bold">Not available until</span> May 13 at 12:00am |<br/> 
                   <span className="fw-bold">Due</span> May 13 at 11:59pm | 100pts
                 </div>
-                <AssignmentButton /></div>
+                <AssignmentButton assignment={assignment} setAssignment={setAssignment}/></div>
               </li>
           ))}
       </ul>

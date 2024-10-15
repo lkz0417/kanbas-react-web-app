@@ -1,22 +1,29 @@
 import "./AssignmentStyles.css";
 import { useParams, useLocation } from "react-router";
 import * as db from "../../Database";
-
-export default function AssignmentEditor() {
-    const assignemts = db.assignments;
+import { addAssignment, updateAssignment, deleteAssignment }
+  from "./reducer";
+import {  useDispatch } from "react-redux";
+export default function AssignmentEditor({assignment, assignments,setAssignment} : {setAssignment: (assignment: any) => void;
+  assignment : any; assignments : any[];
+}) {
+    
+    const dispatch = useDispatch();
     const {cid, aid} = useParams();
-    const assignment = assignemts.find((assignment) => assignment._id === aid && assignment.course === cid);
+    // const assignment = assignemts.find((assignment) => assignment._id === aid && assignment.course === cid);
     return (
       
       <div id="wd-assignments-editor" className="p-3">
     <h5>Assignment Name</h5>
     <div className="row mb-3">
     <div className="col-md-8">
-    <input id="wd-name" value={`${assignment && assignment.title}`} className="form-control mb-3 " /></div></div>
+    <input id="wd-name" value={`${assignment && assignment.title}`} className="form-control mb-3 " 
+    onChange={(e) => setAssignment({...assignment, title: e.target.value})}/></div></div>
     <div className="row mb-3">
     <div className="col-md-8">
-    <textarea id="wd-description" className="form-control mb-3">
-      The assignment is available online .
+    <textarea id="wd-description" className="form-control mb-3"
+    onChange={(e) => setAssignment({...assignment, description: e.target.value})}>
+      {assignment && assignment.description}
     </textarea></div></div>
     <div >
       <div className="row mb-3">
@@ -24,7 +31,8 @@ export default function AssignmentEditor() {
           <label htmlFor="wd-points" className="float-end">Points</label>
         </div>
         <div className="col-md-6">
-          <input id="wd-points" value={100} className="form-control" />
+          <input id="wd-points" value={assignment.points} className="form-control" 
+          onChange={(e) => setAssignment({...assignment, points: e.target.value})}/>
         </div>
       </div>
       <div className="row mb-3">
@@ -94,16 +102,19 @@ export default function AssignmentEditor() {
           <label className="fw-bold">Assign to</label>
           <input value="EveryOne" className="form-control mb-3" />
           <label className="fw-bold">Due</label>
-          <input type="date" value="2024-05-13" className="form-control mb-3" />
+          <input type="date" value={assignment.due} className="form-control mb-3" 
+          onChange={(e) => setAssignment({...assignment, due: e.target.value})}/>
           <div className="row">
             
             <div className="col-md-6">
               <span className="fw-bold">Available from</span>
-              <input type="date" value="2024-05-06" className="form-control flex-fill" />
+              <input type="date" value={assignment.availableFrom} className="form-control flex-fill"
+               onChange={(e) => setAssignment({...assignment, availableFrom: e.target.value})} />
             </div>
             <div className="col-md-6"> 
               <label className="fw-bold">Until</label>
-              <input type="date" value="2024-05-20" className="form-control flex-fill" />
+              <input type="date" value={assignment.availableUntil} className="form-control flex-fill"
+               onChange={(e) => setAssignment({...assignment, availableUntil: e.target.value})} />
             </div>
             </div>    
         </div>
@@ -114,8 +125,17 @@ export default function AssignmentEditor() {
       </div>
       <div className="row">
         <div className="col-md-8 text-end">
-          <button className="btn btn-secondary me-2">Cancel</button>
-          <button className="btn btn-danger">Save</button>
+          <button className="btn btn-secondary me-2"
+          onClick={() => window.location.href = `/#/Kanbas/Courses/${cid}/Assignments`}>Cancel</button>
+          <button className="btn btn-danger"
+          onClick={() => {
+            if (cid === aid) {
+              dispatch(addAssignment(assignment));
+            } else {
+              dispatch(updateAssignment(assignment));
+            }
+            window.location.href = `/#/Kanbas/Courses/${cid}/Assignments`;
+          }}>Save</button>
         </div>
       </div>
     </div>
