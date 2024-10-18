@@ -33,7 +33,7 @@ export default function Assignments() {
         Group </button>
         <button id="wd-add-module-btn" className="btn  btn-danger me-1 height">
         <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
-        Module</button>
+        Assignment</button>
         
         </div><br/>
         
