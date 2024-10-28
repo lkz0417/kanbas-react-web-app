@@ -13,15 +13,24 @@ import AssignmentControls from "./AssignmentControls";
 import AssignmentButton from "./AssignmentButton";
 import { Link } from "react-router-dom";
 import { useParams , useLocation } from "react-router-dom";
-import * as db from "../../Database";
 import { useSelector, useDispatch } from "react-redux";
-import { addAssignment, updateAssignment, deleteAssignment }
+import { setAssignments, addAssignment, updateAssignment, deleteAssignment }
   from "./reducer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import * as client from "./client";
+
 export default function Assignments({assignment, assignments,setAssignment} : {setAssignment: (assignment: any) => void;
   assignment : any; assignments : any[];
 }) {
   const {cid} = useParams();
+  const dispatch = useDispatch();
+  const fetchAssignments = async () => {
+    const assignments = await client.findAssignmentsForCourse(cid as string);
+    dispatch(setAssignments(assignments));
+  };
+  useEffect(() => {
+    fetchAssignments();
+  }, []);
     return (
       <div>
       <div id="wd-assignments">
@@ -50,45 +59,7 @@ export default function Assignments({assignment, assignments,setAssignment} : {s
         <div className="wd-title p-3 ps-2 bg-secondary"> 
       <BsGripVertical className="me-2 fs-3" /><IoMdArrowDropdownCircle className="me-2"/>ASSIGNMENT<AssignmentControls /></div>
       <ul className="wd-lessons list-group rounded-0">
-        {/* <li className="wd-lesson list-group-item p-3 ps-1">
-        <div className="d-flex align-items-center">
-        <BsGripVertical className="me-2 fs-3" />
-        <Link to="/Kanbas/Courses/1234/Assignments/123">< PiNotebookBold className="me-2 text-success " /></Link>
-          <div className="p-2">
-          <a className="custom-link fs-5"
-              href="#/Kanbas/Courses/1234/Assignments/123">
-              A1
-            </a><br/>
-            <span className="text-danger">Multiple Modules</span> | <span className="fw-bold">Not available until</span> May 13 at 12:00am |<br/> 
-            <span className="fw-bold">Due</span> May 13 at 11:59pm | 100pts
-          </div>
-          <LessonControlButtons /></div></li>
-          <li className="wd-lesson list-group-item p-3 ps-1">
-        <div className="d-flex align-items-center">
-        <BsGripVertical className="me-2 fs-3" />
-        <Link to="/Kanbas/Courses/1234/Assignments/123">< PiNotebookBold className="me-2 text-success " /></Link>
-          <div className="p-2">
-          <a className="custom-link fs-5"
-              href="#/Kanbas/Courses/1234/Assignments/123">
-              A2
-            </a><br/>
-            <span className="text-danger">Multiple Modules</span> | <span className="fw-bold">Not available until</span> May 13 at 12:00am |<br/> 
-            <span className="fw-bold">Due</span> May 16 at 11:59pm | 100pts
-          </div>
-          <LessonControlButtons /></div></li>
-          <li className="wd-lesson list-group-item p-3 ps-1">
-        <div className="d-flex align-items-center">
-        <BsGripVertical className="me-2 fs-3" />
-        <Link to="/Kanbas/Courses/1234/Assignments/123">< PiNotebookBold className="me-2 text-success " /></Link>
-          <div className="p-2">
-          <a className="custom-link fs-5"
-              href="#/Kanbas/Courses/1234/Assignments/123">
-              A3
-            </a><br/>
-            <span className="text-danger">Multiple Modules</span> | <span className="fw-bold">Not available until</span> May 13 at 12:00am |<br/> 
-            <span className="fw-bold">Due</span> May 20 at 11:59pm | 100pts
-          </div>
-          <LessonControlButtons /></div></li> */}
+        
           {assignments.
           filter((assignment: any) => assignment.course === cid)
           .map((assignment: any) => (

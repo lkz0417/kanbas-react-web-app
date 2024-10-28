@@ -4,12 +4,21 @@ import * as db from "../../Database";
 import { addAssignment, updateAssignment, deleteAssignment }
   from "./reducer";
 import {  useDispatch } from "react-redux";
+import * as client from "./client";
 export default function AssignmentEditor({assignment, assignments,setAssignment} : {setAssignment: (assignment: any) => void;
   assignment : any; assignments : any[];
 }) {
     
     const dispatch = useDispatch();
     const {cid, aid} = useParams();
+    const createAssignment = async (assignment: any) => {
+      const newAssignment = await client.createAssignment(cid as string, assignment);
+      dispatch(addAssignment(newAssignment));
+    };
+    const saveAssignment = async (assignment: any) => {
+      const status = await client.updateAssignment(assignment);
+      dispatch(updateAssignment(assignment));
+    };
     // const assignment = assignemts.find((assignment) => assignment._id === aid && assignment.course === cid);
     return (
       
@@ -31,7 +40,7 @@ export default function AssignmentEditor({assignment, assignments,setAssignment}
           <label htmlFor="wd-points" className="float-end">Points</label>
         </div>
         <div className="col-md-6">
-          <input id="wd-points" value={assignment.points} className="form-control" 
+          <input id="wd-points" type="number" className="form-control" 
           onChange={(e) => setAssignment({...assignment, points: e.target.value})}/>
         </div>
       </div>
@@ -130,9 +139,10 @@ export default function AssignmentEditor({assignment, assignments,setAssignment}
           <button className="btn btn-danger"
           onClick={() => {
             if (cid === aid) {
-              dispatch(addAssignment(assignment));
+              // dispatch(addAssignment(assignment));
+              createAssignment(assignment);
             } else {
-              dispatch(updateAssignment(assignment));
+              saveAssignment(assignment);
             }
             window.location.href = `/#/Kanbas/Courses/${cid}/Assignments`;
           }}>Save</button>
