@@ -47,9 +47,9 @@ export default function WorkingWithObjects() {
         value={assignment.score} type="number" onChange={(e) =>
           setAssignment({ ...assignment, score: parseInt(e.target.value) })}/>
       <br />
-      <div className="d-flex ">
+      {/* <div className="d-flex ">
       
-      <input className=" form-check-input w-75 custom-checkbox" id="wd-assignment-completed"
+      <input className=" w-75 " id="wd-assignment-completed"
         checked={assignment.completed} type="checkbox" onChange={(e) =>
           setAssignment({ ...assignment, completed: (e.target.checked) })}/>
       <a id="wd-update-assignment-compeleted"
@@ -57,6 +57,23 @@ export default function WorkingWithObjects() {
     href={`${ASSIGNMENT_API_URL}/completed/${assignment.completed}`}>
         Update Completed
       </a>
+    </div>
+     */}
+     <div className="d-flex align-items-center">
+    <input
+        className="me-3 checkbox-height checkbox-width" // 使用 `me-2` 增加右边距，让按钮靠近但不重叠
+        id="wd-assignment-completed"
+        checked={assignment.completed}
+        type="checkbox"
+        onChange={(e) => setAssignment({ ...assignment, completed: e.target.checked })}
+    />
+    <a
+        id="wd-update-assignment-completed"
+        className="btn btn-primary"
+        href={`${ASSIGNMENT_API_URL}/completed/${assignment.completed}`}
+    >
+        Update Completed
+    </a>
     </div>
       <br/><hr />
       <h4>Retrieving Modules</h4>
@@ -78,7 +95,7 @@ export default function WorkingWithObjects() {
       <input className="form-control w-75" id="wd-module-name"
         value={module.name} onChange={(e) =>
           setModule({ ...module, name: e.target.value })}/>
-      <hr/>
+      <br/>
       <a id="wd-update-module-description"
          className="btn btn-primary float-end"
          href={`${MODULE_API_URL}/score/${module.description}`}>
@@ -89,6 +106,6 @@ export default function WorkingWithObjects() {
             setModule({ ...module, description: e.target.value });
         }
           }/>
-      <br/>
+      <hr/>
     </div>
 );}

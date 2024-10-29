@@ -1,9 +1,10 @@
 .custom-checkbox {
-    height: 30px; /* 调整大小 */
+    height: 30px;
+     /* 调整大小 */
   }
   
 .checkbox-width{
-    width: 100px;
+    width: 40px;
 }
 .checkbox-height{
     height: 32px;
