@@ -24,6 +24,7 @@ export default function Assignments({assignment, assignments,setAssignment} : {s
 }) {
   const {cid} = useParams();
   const dispatch = useDispatch();
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
   const fetchAssignments = async () => {
     const assignments = await client.findAssignmentsForCourse(cid as string);
     dispatch(setAssignments(assignments));
@@ -42,16 +43,16 @@ export default function Assignments({assignment, assignments,setAssignment} : {s
         <FormControl placeholder="Search..."/>
         </InputGroup>
         
-        <button id="wd-view-progress" className="btn   me-1 btn-secondary ms-auto height">
+        {currentUser.role==='FACULTY' && (<button id="wd-view-progress" className="btn   me-1 btn-secondary ms-auto height">
         <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
-        Group </button>
+        Group </button>)}
         
-        <a id="wd-add-assignment-btn" className="btn  btn-danger  me-1 height"
+        {currentUser.role==='FACULTY' && (<a id="wd-add-assignment-btn" className="btn  btn-danger  me-1 height"
         href={`/#/Kanbas/Courses/${cid}/Assignments/${cid}`}>
         <div className="d-flex">
         <FaPlus className="position-relative me-2" style={{ top: "10px" }} />
         <p className="position-relative me-1" style={{ top: "6px" }}>Assignment</p></div></a>
-        
+        )}
         
         </div><br/>
         

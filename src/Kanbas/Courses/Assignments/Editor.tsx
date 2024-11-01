@@ -3,12 +3,12 @@ import { useParams, useLocation } from "react-router";
 import * as db from "../../Database";
 import { addAssignment, updateAssignment, deleteAssignment }
   from "./reducer";
-import {  useDispatch } from "react-redux";
+import {  useDispatch , useSelector} from "react-redux";
 import * as client from "./client";
 export default function AssignmentEditor({assignment, assignments,setAssignment} : {setAssignment: (assignment: any) => void;
   assignment : any; assignments : any[];
 }) {
-    
+    const { currentUser } = useSelector((state: any) => state.accountReducer);
     const dispatch = useDispatch();
     const {cid, aid} = useParams();
     const createAssignment = async (assignment: any) => {
@@ -132,22 +132,24 @@ export default function AssignmentEditor({assignment, assignments,setAssignment}
       <div className="row mb-3">
         <div className="col-md-8"><hr/></div>
       </div>
+      {currentUser.role === "FACULTY" && 
       <div className="row">
-        <div className="col-md-8 text-end">
-          <button className="btn btn-secondary me-2"
-          onClick={() => window.location.href = `/#/Kanbas/Courses/${cid}/Assignments`}>Cancel</button>
-          <button className="btn btn-danger"
-          onClick={() => {
-            if (cid === aid) {
-              // dispatch(addAssignment(assignment));
-              createAssignment(assignment);
-            } else {
-              saveAssignment(assignment);
-            }
-            window.location.href = `/#/Kanbas/Courses/${cid}/Assignments`;
-          }}>Save</button>
-        </div>
+      <div className="col-md-8 text-end">
+        <button className="btn btn-secondary me-2"
+        onClick={() => window.location.href = `/#/Kanbas/Courses/${cid}/Assignments`}>Cancel</button>
+        <button className="btn btn-danger"
+        onClick={() => {
+          if (cid === aid) {
+            // dispatch(addAssignment(assignment));
+            createAssignment(assignment);
+          } else {
+            saveAssignment(assignment);
+          }
+          window.location.href = `/#/Kanbas/Courses/${cid}/Assignments`;
+        }}>Save</button>
       </div>
+    </div>}
+      
     </div>
   </div>
   );}

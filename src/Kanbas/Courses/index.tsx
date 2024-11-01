@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addAssignment, updateAssignment, deleteAssignment }
   from "./Assignments/reducer";
 import { useState } from "react";
+import ProtectedRoute from "./Protected";
 
 export default function Courses({ courses }: { courses: any[]; }) {
   const { cid } = useParams();
@@ -40,7 +41,7 @@ export default function Courses({ courses }: { courses: any[]; }) {
     </div>
     <div className="flex-fill">
     <Routes>
-      <Route path="Home" element={<Home />} />
+      <Route path="Home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
       <Route path="Modules" element={<Modules />} />
       <Route path="Assignments" element={<Assignments 
       assignments={assignments}
