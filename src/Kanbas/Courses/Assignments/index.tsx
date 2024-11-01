@@ -22,73 +22,37 @@ export default function Assignments({assignment, assignments,setAssignment} : {s
   assignment : any; assignments : any[];
 }) {
   const {cid} = useParams();
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
     return (
       <div>
       <div id="wd-assignments">
-      
-        <div className="d-flex">
+      <div className="d-flex">
         <InputGroup className="mb-3 custom-input-group">
         <InputGroupText><FaMagnifyingGlass/></InputGroupText>
         
         <FormControl placeholder="Search..."/>
         </InputGroup>
-        
-        <button id="wd-view-progress" className="btn   me-1 btn-secondary ms-auto height">
+        {currentUser.role==='FACULTY' && (<button id="wd-view-progress" className="btn   me-1 btn-secondary ms-auto height">
         <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
-        Group </button>
+        Group </button>)}
         
-        <a id="wd-add-assignment-btn" className="btn  btn-danger  me-1 height"
+        {currentUser.role==='FACULTY' && (<a id="wd-add-assignment-btn" className="btn  btn-danger  me-1 height"
         href={`/#/Kanbas/Courses/${cid}/Assignments/${cid}`}>
         <div className="d-flex">
         <FaPlus className="position-relative me-2" style={{ top: "10px" }} />
         <p className="position-relative me-1" style={{ top: "6px" }}>Assignment</p></div></a>
+        )}
         
         
-        </div><br/>
+        </div>
+      
+        <br/>
         
         
         <div className="wd-title p-3 ps-2 bg-secondary"> 
       <BsGripVertical className="me-2 fs-3" /><IoMdArrowDropdownCircle className="me-2"/>ASSIGNMENT<AssignmentControls /></div>
       <ul className="wd-lessons list-group rounded-0">
-        {/* <li className="wd-lesson list-group-item p-3 ps-1">
-        <div className="d-flex align-items-center">
-        <BsGripVertical className="me-2 fs-3" />
-        <Link to="/Kanbas/Courses/1234/Assignments/123">< PiNotebookBold className="me-2 text-success " /></Link>
-          <div className="p-2">
-          <a className="custom-link fs-5"
-              href="#/Kanbas/Courses/1234/Assignments/123">
-              A1
-            </a><br/>
-            <span className="text-danger">Multiple Modules</span> | <span className="fw-bold">Not available until</span> May 13 at 12:00am |<br/> 
-            <span className="fw-bold">Due</span> May 13 at 11:59pm | 100pts
-          </div>
-          <LessonControlButtons /></div></li>
-          <li className="wd-lesson list-group-item p-3 ps-1">
-        <div className="d-flex align-items-center">
-        <BsGripVertical className="me-2 fs-3" />
-        <Link to="/Kanbas/Courses/1234/Assignments/123">< PiNotebookBold className="me-2 text-success " /></Link>
-          <div className="p-2">
-          <a className="custom-link fs-5"
-              href="#/Kanbas/Courses/1234/Assignments/123">
-              A2
-            </a><br/>
-            <span className="text-danger">Multiple Modules</span> | <span className="fw-bold">Not available until</span> May 13 at 12:00am |<br/> 
-            <span className="fw-bold">Due</span> May 16 at 11:59pm | 100pts
-          </div>
-          <LessonControlButtons /></div></li>
-          <li className="wd-lesson list-group-item p-3 ps-1">
-        <div className="d-flex align-items-center">
-        <BsGripVertical className="me-2 fs-3" />
-        <Link to="/Kanbas/Courses/1234/Assignments/123">< PiNotebookBold className="me-2 text-success " /></Link>
-          <div className="p-2">
-          <a className="custom-link fs-5"
-              href="#/Kanbas/Courses/1234/Assignments/123">
-              A3
-            </a><br/>
-            <span className="text-danger">Multiple Modules</span> | <span className="fw-bold">Not available until</span> May 13 at 12:00am |<br/> 
-            <span className="fw-bold">Due</span> May 20 at 11:59pm | 100pts
-          </div>
-          <LessonControlButtons /></div></li> */}
+       
           {assignments.
           filter((assignment: any) => assignment.course === cid)
           .map((assignment: any) => (

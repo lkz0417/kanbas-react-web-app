@@ -4,10 +4,11 @@ import * as db from "../../Database";
 import { addAssignment, updateAssignment, deleteAssignment }
   from "./reducer";
 import {  useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 export default function AssignmentEditor({assignment, assignments,setAssignment} : {setAssignment: (assignment: any) => void;
   assignment : any; assignments : any[];
 }) {
-    
+    const { currentUser } = useSelector((state: any) => state.accountReducer);
     const dispatch = useDispatch();
     const {cid, aid} = useParams();
     // const assignment = assignemts.find((assignment) => assignment._id === aid && assignment.course === cid);
@@ -123,7 +124,7 @@ export default function AssignmentEditor({assignment, assignments,setAssignment}
       <div className="row mb-3">
         <div className="col-md-8"><hr/></div>
       </div>
-      <div className="row">
+      {currentUser.role === "FACULTY" && (<div className="row">
         <div className="col-md-8 text-end">
           <button className="btn btn-secondary me-2"
           onClick={() => window.location.href = `/#/Kanbas/Courses/${cid}/Assignments`}>Cancel</button>
@@ -137,7 +138,8 @@ export default function AssignmentEditor({assignment, assignments,setAssignment}
             window.location.href = `/#/Kanbas/Courses/${cid}/Assignments`;
           }}>Save</button>
         </div>
-      </div>
+      </div>)}
+      
     </div>
   </div>
   );}
