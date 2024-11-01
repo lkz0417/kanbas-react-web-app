@@ -41,7 +41,7 @@ export default function Dashboard(
       fecthSelectedCourses();
     }, [ enrollments]);
     useEffect(() => {
-      setDisplayCourses(displayAll ? courses : selectedCourses );
+      setDisplayCourses(displayAll || currentUser.role !== "STUDENT" ? courses : selectedCourses );
     }, [ selectedCourses, courses, displayAll]);
     
   return (
@@ -61,21 +61,21 @@ export default function Dashboard(
                   id="wd-add-new-course-click"
                   onClick={() => {
                     addNewCourse();
-                    const newCourse = { ...course, _id: new Date().getTime().toString() };
-                    setDisplayCourses([...courses, newCourse]);
+                    // const newCourse = { ...course, _id: new Date().getTime().toString() };
+                    // setDisplayCourses([...courses, newCourse]);
                   }}> Add </button>
            <button className="btn btn-warning float-end me-2"
                 onClick={() => {
                   updateCourse();
-                  setDisplayCourses(
-                    courses.map((c) => {
-                      if (c._id === course._id) {
-                        return course;
-                      } else {
-                        return c;
-                      }
-                    })
-                  );
+                  // setDisplayCourses(
+                  //   courses.map((c) => {
+                  //     if (c._id === course._id) {
+                  //       return course;
+                  //     } else {
+                  //       return c;
+                  //     }
+                  //   })
+                  // );
                 }} id="wd-update-course-click">
             Update</button>
 
