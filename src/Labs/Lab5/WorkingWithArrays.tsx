@@ -44,7 +44,7 @@ export default function WorkingWithArrays() {
             onChange={(e) => setTodo({ ...todo, id: e.target.value })}/>
         <input value={todo.title} className="form-control w-50 float-start"
                 onChange={(e) => setTodo({ ...todo, title: e.target.value }) }/>
-        <br /><br /><hr />
+        <br /><br />
         <div className="d-flex align-items-center">
         
         

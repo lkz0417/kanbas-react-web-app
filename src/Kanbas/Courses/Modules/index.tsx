@@ -55,7 +55,7 @@ export default function Modules() {
               {!module.editing && module.name}
               { module.editing && (
                 <input className="form-control w-50 d-inline-block"
-                      onChange={(e) => saveModule({ ...module, name: e.target.value })}
+                      onChange={(e) => dispatch(updateModule({ ...module, name: e.target.value }))}
                       onKeyDown={(e) => {
                         if (e.key === "Enter") {
                           saveModule({ ...module, editing: false });

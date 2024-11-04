@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import * as db from "./Database";
 import { useEffect } from "react";
-import { addEnrollment, deleteEnrollment } from "./Enrollments/reducer";
+import { addEnrollment, deleteEnrollment, findEnrollments } from "./Enrollments/reducer";
 import { useRef } from "react";
+import * as client from "./Enrollments/client";
 export default function Dashboard(
   { courses, course, setCourse, addNewCourse,
     deleteCourse, updateCourse }: {
@@ -34,12 +35,32 @@ export default function Dashboard(
       }
       
     };
-    useEffect(() => {
-      fecthSelectedCourses();
-    },[]);
+    const fetchEnrollments = async() => {
+      const enrollments = await client.fetchEnrollments();
+      dispatch(findEnrollments(enrollments));
+    };
+    const addNewEnrollment = async(courseId: string, userId: string) => {
+      const enrollment = await client.createEnrollment(courseId, userId);
+      dispatch(addEnrollment(enrollment));
+    };
+    const deleteEnrollments = async(courseId: string, userId: string) => {
+      await client.deleteEnrollment(courseId, userId);
+      const enrollment = {
+        course: courseId,
+        user: userId
+      }
+      dispatch(deleteEnrollment(enrollment));
+    };
+    // useEffect(() => {
+    //   fecthSelectedCourses();
+    //   fetchEnrollments();
+    // },[]);
     useEffect(() => {
       fecthSelectedCourses();
     }, [ enrollments]);
+    useEffect(() => {
+      fetchEnrollments();
+    }, []);
     useEffect(() => {
       setDisplayCourses(displayAll || currentUser.role !== "STUDENT" ? courses : selectedCourses );
     }, [ selectedCourses, courses, displayAll]);
@@ -131,10 +152,7 @@ export default function Dashboard(
                         )
                     &&<button onClick={(event) => {
                       event.preventDefault();
-                      const enrollment = enrollments.find(
-                        (e:any) => e.user === currentUser._id && e.course === course._id
-                      );
-                      dispatch(deleteEnrollment(enrollment._id));
+                      deleteEnrollments(course._id, currentUser._id);
                     }} className="btn btn-danger float-end"
                     id="wd-delete-course-click">
                     Unenroll
@@ -148,11 +166,7 @@ export default function Dashboard(
                      && <button id="wd-edit-course-click"
                       onClick={(event) => {
                         event.preventDefault();
-                        const newEnrollement = {
-                          user: currentUser._id,
-                          course: course._id
-                        };
-                        dispatch(addEnrollment(newEnrollement));
+                        addNewEnrollment(course._id, currentUser._id);
                       }}
                       className="btn btn-warning me-2 float-end" >
                       Enroll
