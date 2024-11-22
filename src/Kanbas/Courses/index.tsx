@@ -11,6 +11,8 @@ import { addAssignment, updateAssignment, deleteAssignment }
   from "./Assignments/reducer";
 import { useState } from "react";
 import ProtectedRoute from "./Protected";
+import * as courseClient from "../Courses/client";
+import { useEffect } from "react";
 
 export default function Courses({ courses }: { courses: any[]; }) {
   const { cid } = useParams();
@@ -26,8 +28,16 @@ export default function Courses({ courses }: { courses: any[]; }) {
     availableFrom: "2024-10-13T23:59",
     availableUntil: "2024-10-20T23:59"
   });
+  const [people, setPeople] = useState<any[]>([]);
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
   const dispatch = useDispatch();
+  const fetchPeople = async () => {
+    const people = await courseClient.findUsersForCourse(cid as string);
+    setPeople(people);
+  };
+  useEffect(() => {
+    fetchPeople();
+  }, []);
   return (
     <div id="wd-courses">
   <h2 className="text-danger">
@@ -51,7 +61,7 @@ export default function Courses({ courses }: { courses: any[]; }) {
       assignments={assignments}
       assignment={assignment}
       setAssignment={setAssignment}/>} />
-      <Route path="People" element={<PeopleTable />} />
+      <Route path="People" element={<PeopleTable users={people}/>} />
     </Routes>
     </div></div>
     

@@ -41,7 +41,7 @@ export default function Modules() {
     return (
       <div>
   <ModulesControls setModuleName={setModuleName} moduleName={moduleName} addModule={() => {
-          createModule({ name: moduleName, course: cid });
+          createModule({  name: moduleName, course: cid });
           setModuleName("");
         }}/><br /><br /><br /><br />
  

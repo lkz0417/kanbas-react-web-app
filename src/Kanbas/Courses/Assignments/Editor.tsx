@@ -40,7 +40,7 @@ export default function AssignmentEditor({assignment, assignments,setAssignment}
           <label htmlFor="wd-points" className="float-end">Points</label>
         </div>
         <div className="col-md-6">
-          <input id="wd-points" type="number" className="form-control" 
+          <input id="wd-points" value={assignment.points} type="number" className="form-control" 
           onChange={(e) => setAssignment({...assignment, points: e.target.value})}/>
         </div>
       </div>
