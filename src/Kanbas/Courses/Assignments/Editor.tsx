@@ -132,7 +132,7 @@ export default function AssignmentEditor({assignment, assignments,setAssignment}
       <div className="row mb-3">
         <div className="col-md-8"><hr/></div>
       </div>
-      {currentUser.role === "FACULTY" && 
+      {(currentUser.role === "FACULTY" || currentUser.role === "ADMIN") && 
       <div className="row">
       <div className="col-md-8 text-end">
         <button className="btn btn-secondary me-2"
